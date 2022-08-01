@@ -4,9 +4,7 @@ import styled from "styled-components";
 import ContainerComponentStyled from "../../commons/container-component";
 import WrapperComponentStyled from "../../commons/wrapper-component";
 
-function PokemonDetails({ pokemonDetails }) {
-  console.log('pokemonDetail',pokemonDetails);
-  
+const PokemonDetails = ({ pokemonDetails }) => {
   return (
     Object.keys(pokemonDetails).length && <ContainerPokemonDetailsCard>
       <WrapperPokemonDetailsCard>
@@ -64,7 +62,7 @@ function PokemonDetails({ pokemonDetails }) {
               <PokemonSubList>
                 {pokemonDetails.stats.map((item, index) => (
                   <PokemonSubListItem key={index}>
-                    {`${item.stat.name}: ${item.base_stat}, effort ${item.effort}`}
+                    {`${item.stat.name}: ${item.base_stat}${item.effort ? (', effort '+item.effort) : ''}`}
                   </PokemonSubListItem>
                 ))}
               </PokemonSubList>
@@ -77,7 +75,7 @@ function PokemonDetails({ pokemonDetails }) {
               <PokemonSubList>
                 {pokemonDetails.abilities.map((item, index) => (
                   <PokemonSubListItem key={index}>
-                    {`${item.ability.name}: slot-${item.slot}, ${item.is_hidden ? "hidden" : "not-hidden"}`}
+                    {`${item.ability.name}: slot-${item.slot}${item.is_hidden ? ", hidden" : ""}`}
                   </PokemonSubListItem>
                 ))}
               </PokemonSubList>
@@ -92,7 +90,7 @@ function PokemonDetails({ pokemonDetails }) {
 }
 
 const ContainerPokemonDetailsCard = styled(ContainerComponentStyled)`
-  width: 35%;
+  max-width: 33%;
 `;
 
 const WrapperPokemonDetailsCard = styled(WrapperComponentStyled)`
@@ -101,6 +99,7 @@ const WrapperPokemonDetailsCard = styled(WrapperComponentStyled)`
   border: 2px solid grey;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.6);
+  min-height: 637px;
 `;
 
 const PokemonCardName = styled.h3`

@@ -1,50 +1,33 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ApiPokedexContext } from "../app";
 
 import PokemonDetails from "../pokemon-details";
 
+const PokemonDetailsContainer = ({ pokemonUrl, isPokemonUrl }) => {
+  const dispatch = useDispatch();
 
-function PokemonDetailsContainer({ pokemonUrl }) {
-  const [pokemonDetails, setPokemonDeteails] = useState({});
+  const pokemonDetails = useSelector((state) => state.pokemonDetails);
+  const pokemonsCompareSecondDetails = useSelector((state) => state.pokemonsCompareSecondDetails);
 
   const apiPokedex = useContext(ApiPokedexContext);
 
   useEffect(() => {
     const dataPokemons = apiPokedex.getPokemonsEntity(pokemonUrl);
 
-    dataPokemons.then((data) => {   
-      // const getNormilizedPokemonStats = (data) => {
-      //   const resultObject = {
-      //     name: data.name,
-      //     weight: data.weight,
-      //     order: data.order,
-      //     height: data.height,
-      //     id: data.id,
-      //     default: data.is_default,
-      //     species: data.species.name,
-      //     base_experience: data.base_experience
-      //   };
+    dataPokemons.then((data) => {
+      if (isPokemonUrl) {
+        dispatch({ type: "ADD_POKEMON_DETAILS", payload: data });
+      }
 
-      //   data.sats.forEach((stat) => {
-      //     resultObject[stat.stat.name] = stat.base_stat;
-      //   });
-
-      //   data.sats.forEach((stat) => {
-      //     resultObject[stat.stat.name] = stat.base_stat;
-      //   });
-
-      //   return resultObject;
-      // }; 
-      console.log('data', data);
-      console.log('pokemonUrl', pokemonUrl);
-      setPokemonDeteails(data);
-
-       
+      if (!isPokemonUrl) {
+        dispatch({ type: "ADD_POKEMONS_COMPARE_SECOND_DETAILS", payload: data });
+      }
     });
-  }, [apiPokedex, pokemonUrl]);
+  }, [apiPokedex, pokemonUrl, isPokemonUrl, dispatch]);
 
-  return <PokemonDetails pokemonDetails={pokemonDetails}/>;
+  return <PokemonDetails pokemonDetails={isPokemonUrl ? pokemonDetails : pokemonsCompareSecondDetails} />;
 }
 
 export default PokemonDetailsContainer;

@@ -1,3 +1,3 @@
-import StyledFooter from "./footer";
+import FooterStyled from "./footer";
 
-export default StyledFooter;
+export default FooterStyled;

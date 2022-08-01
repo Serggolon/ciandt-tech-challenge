@@ -4,12 +4,14 @@ import styled from "styled-components";
 import WrapperComponentStyled from "../../commons/wrapper-component";
 import ContainerContentStyled from "../../commons/container-component";
 
-function PokemonListItem({ changePokemonUrl, pokemon }) {
+const PokemonListItem = ({ changePokemonUrl, pokemon }) => {
   return (
     <ContainerPokemonListItemStyled>
       <WrapperPokemonListItemStyled>
         <PokemonsListItemStyled onClick={() => changePokemonUrl(pokemon.url)}>
-          <PokemonsNameStyled>{pokemon.name}</PokemonsNameStyled>
+          <WrapperPokemonNameStyled>
+            <PokemonsNameStyled>{pokemon.name}</PokemonsNameStyled>
+          </WrapperPokemonNameStyled>
         </PokemonsListItemStyled>
       </WrapperPokemonListItemStyled>
     </ContainerPokemonListItemStyled>
@@ -37,8 +39,12 @@ const PokemonsListItemStyled = styled.li`
   background: grey;
 `;
 
+const WrapperPokemonNameStyled = styled(WrapperComponentStyled)`
+  margin: 5px;
+`;
+
 const PokemonsNameStyled = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
 `;
 
