@@ -3,14 +3,33 @@ import styled from "styled-components";
 
 import WrapperComponentStyled from "../../commons/wrapper-component";
 import ContainerContentStyled from "../../commons/container-component";
+import ButtonStyled from "../../commons/styled-button";
 
 import PokemonListItem from "../pokemon-list-item";
 
-function PokemonList({ changePokemonUrl, pokemons }) {
+const PokemonList = ({
+  changePokemonUrl,
+  pokemons,
+  handlePrevButton,
+  handleNextButton,
+  isPreviousButton,
+  isNextButton,
+}) => {
   return (
     <ContainerPokemonListStyled>
       <WrapperPokemonListStyled>
-        <PokemonsTaskNameStyled>Pokemons List:</PokemonsTaskNameStyled>
+        <WrapperPokemonNavigationStyled>
+          <PokemonsTaskNameStyled>Pokemons List:</PokemonsTaskNameStyled>
+
+          {isPreviousButton ? (
+            <ButtonStyled onClick={handlePrevButton} active={true}>{"<"}</ButtonStyled>
+          ) : <ButtonStyled onClick={handlePrevButton} active={false} disabled>{"<"}</ButtonStyled>}
+
+          {isNextButton ? (
+            <ButtonStyled onClick={handleNextButton} active={true}>{">"}</ButtonStyled>
+          ) : <ButtonStyled onClick={handleNextButton} active={false} disabled>{">"}</ButtonStyled>}
+        </WrapperPokemonNavigationStyled>
+
         <PokemonsListStyled>
           {pokemons.results.map((item, index) => (
             <PokemonListItem
@@ -26,7 +45,7 @@ function PokemonList({ changePokemonUrl, pokemons }) {
 }
 
 const ContainerPokemonListStyled = styled(ContainerContentStyled)`
-  width: 30%;
+  max-width: 33%;
 `;
 
 const WrapperPokemonListStyled = styled(WrapperComponentStyled)`
@@ -37,16 +56,27 @@ const WrapperPokemonListStyled = styled(WrapperComponentStyled)`
   background: rgba(255, 255, 255, 0.6);
 `;
 
+const WrapperPokemonNavigationStyled = styled(WrapperComponentStyled)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid grey;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  margin: 5px;
+`;
+
 const PokemonsTaskNameStyled = styled.h3`
-  padding: 5px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-decoration: underline;
 `;
 
 const PokemonsListStyled = styled.ul`
   display: flex;
   flex-direction: column;
-  max-height: 550px;
+  height: 580px;
   overflow-y: scroll;
   border: 1px solid black;
   border-radius: 0.5rem;

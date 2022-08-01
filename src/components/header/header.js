@@ -1,21 +1,30 @@
 import styled from "styled-components";
 
-import ContainerBlockStyled from "../../commons/container-block";
+import WrapperBlockStyled from "../../commons/wrapper-block";
+import HeaderStyled from "../styled-components/header";
 
-function Header() {
-  return <ContainerBlockStyled><HeaderStyled>Pokedex</HeaderStyled></ContainerBlockStyled>;
+const Header = () => {
+  return (
+    <HeaderStyled>
+      <WrapperHeaderStyled>
+        <HeaderOneStyled>Pokedex</HeaderOneStyled>
+      </WrapperHeaderStyled>
+    </HeaderStyled>
+  );
 }
 
-const HeaderStyled = styled.div`
+const WrapperHeaderStyled = styled(WrapperBlockStyled)`
   display: flex;
   flex-direction: column;
-  background: black;
   justify-content: center;
   align-items: center;
-  border-radius: 1rem;
-  font-size: 4rem;
+  font-size: 3rem;
   color: burlywood;
-  padding: 5px;
+  margin: 15px;
+`;
+
+const HeaderOneStyled = styled.h1`
+  padding: 15px;
 `;
 
 export default Header;

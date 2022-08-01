@@ -1,35 +1,3 @@
-// const pokedexApi = async (
-//     url,
-//     { method, body, isUpdate }
-//   ) => {
-//     const storage = await JSON.parse(sessionStorage.getItem('tokenData'));
-  
-//     const res = await fetch(url, {
-//       method: method,
-//       headers: {
-//         'Content-Type': 'application/json',
-//         ...(storage
-//           ? {
-//               Authorization: `Bearer ${
-//                 isUpdate ? storage.refreshToken.token : storage.accessToken
-//               }`,
-//             }
-//           : {}),
-//       },
-//       ...(body ? { body: JSON.stringify(body) } : {}),
-//     });
-//     const result = await res.json();
-  
-//     if (!res.ok) {
-//       throw result;
-//     }
-  
-//     return result;
-//   };
-  
-//   export default pokedexApi;
-
-
 export default class ApiPokedex {
 
     _apiBase = 'https://pokeapi.co/api/v2';
@@ -48,6 +16,15 @@ export default class ApiPokedex {
 
         if (!res.ok) {
             throw new Error(`Could not fetch ${url}, received ${res.status}`);
+        }
+        return await res.json();
+    }
+    
+    async getPokemonByName(name) {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+
+        if (!res.ok) {
+            throw new Error(`Could not fetch ${name}, received ${res.status}`);
         }
         return await res.json();
     }

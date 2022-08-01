@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const StyledHeader = styled.header`
-  width: 100%;
+const HeaderStyled = styled.header`
   background: black;
+  border-radius: 1rem;
 `;
 
-export default StyledHeader;
+export default HeaderStyled;

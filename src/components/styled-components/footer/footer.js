@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const StyledFooter = styled.footer`
-  width: 100%;
-  background: greenyellow;
+const FooterStyled = styled.footer`
+  background: black;
+  border-radius: 1rem;
 `;
 
-export default StyledFooter;
+export default FooterStyled;
